@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using BackpackUnit.UI;
 using UnityEngine;
 
 public class GameEntryPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] InventiryUI inventiryUI;
+    [SerializeField] BackpackInputHandler backpackInputHandler;
+    
+
+    void Awake()
     {
-        
+        inventiryUI.Init();
+        backpackInputHandler.Init(inventiryUI);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
