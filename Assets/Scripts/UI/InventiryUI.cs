@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace BackpackUnit.UI
 {
-    public class InventiryUI : MonoBehaviour, IInventoryView
+    public class InventiryUI : MonoBehaviour, IInventoryView, IBackpackView
     {
         [SerializeField] GraphicRaycaster graphicRaycaster;
         

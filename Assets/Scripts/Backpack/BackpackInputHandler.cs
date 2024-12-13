@@ -2,25 +2,28 @@ using BackpackUnit.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-public class BackpackInputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+namespace BackpackUnit.Backpack
 {
-
-    private IInventoryView inventoryView;
-
-
-    public void Init(IInventoryView inventoryView)
+    [RequireComponent(typeof(Collider))]
+    public class BackpackInputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        this.inventoryView = inventoryView;
-    }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        inventoryView.Open();
-    }
+        private IInventoryView inventoryView;
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        inventoryView.TryRemoveItemAndClose(eventData);
+        public void Init(IInventoryView inventoryView)
+        {
+            this.inventoryView = inventoryView;
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            inventoryView.Open();
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            inventoryView.TryRemoveItemAndClose(eventData);
+        }
     }
 }
+
