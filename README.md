@@ -31,5 +31,5 @@ The project structure is organised with a generalised hierarchy. All resources (
 
 ## Sources
 
-The models are taken from https://assetstore.unity.com/
-The sounds are taken from https://mixkit.co/free-sound-effects/
+- The models are taken from https://assetstore.unity.com/
+- The sounds are taken from https://mixkit.co/free-sound-effects/
