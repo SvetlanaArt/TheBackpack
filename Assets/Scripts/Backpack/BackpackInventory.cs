@@ -38,7 +38,7 @@ namespace BackpackUnit.Backpack
             }
         }
 
-        public bool AddItem(Transform itemTransform, IThrowable item, IItemInfo itemInfo)
+        public Vector3 AddItem(Transform itemTransform, IThrowable item, IItemInfo itemInfo)
         {
             ItemType itemType = itemInfo.GetItemType();
             if (pockets.TryGetValue(itemType, out var pocket))
@@ -50,11 +50,11 @@ namespace BackpackUnit.Backpack
                     pocket.PutItem(itemInfo);
                     backpackView.AddItem(itemInfo);
                     remoteRequest.SendToServer(item.GetId(), "Add");
-                    return true;
+                    return pocket.GetInsertionLocalPosition();
                 }
             }
 
-            return false;
+            return Vector3.zero;
         }
 
         public void RemoveItem(ItemType itemType)
@@ -62,13 +62,13 @@ namespace BackpackUnit.Backpack
             if (pockets.TryGetValue(itemType, out var pocket))
             {
                 pocket.RemoveItem();
+                if (itemsInBackpack.TryGetValue(itemType, out var item))
+                {
+                    item.ThrowAway(throwPoint.transform.position, pocket.GetInsertionLocalPosition());
+                    itemsInBackpack.Remove(itemType);
+                    remoteRequest.SendToServer(item.GetId(), "Remove");
+                }
             }
-            if (itemsInBackpack.TryGetValue(itemType, out var item))
-            {
-                item.ThrowAway(throwPoint.transform.position);
-                itemsInBackpack.Remove(itemType);
-                remoteRequest.SendToServer(item.GetId(), "Remove");
-            }
-        }
+         }
     }
 }

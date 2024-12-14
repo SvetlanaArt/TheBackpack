@@ -15,7 +15,6 @@ namespace BackpackUnit.Items
         [SerializeField] float movingSpeed;
         [Header("Animation")]
         [SerializeField] float putIntoBackpackSpeed;
-        [SerializeField] float insertionDistance;
         [Header("Physics")]
         [SerializeField] float throwForce;
 
@@ -23,7 +22,7 @@ namespace BackpackUnit.Items
         ItemAnimation itemAnimation;
         ItemPhysics itemPhysics;
         Camera mainCamera;
-        
+
         Transform itemsParent;
         bool isPickedUp;
 
@@ -34,11 +33,11 @@ namespace BackpackUnit.Items
             id = id = Guid.NewGuid().ToString();
 
             mainCamera = Camera.main;
-            
+
             Rigidbody rigidbodyObj = GetComponent<Rigidbody>();
             Collider colliderObj = GetComponent<Collider>();
 
-            dragDrop = new DragDrop(transform, pickupDistance, rigidbodyObj.worldCenterOfMass);
+            dragDrop = new DragDrop(transform, pickupDistance, rigidbodyObj);
             itemAnimation = new ItemAnimation(transform);
             itemPhysics = new ItemPhysics(rigidbodyObj, colliderObj);
 
@@ -48,13 +47,15 @@ namespace BackpackUnit.Items
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (!Input.GetMouseButton(0))
+                return;
             if (isPickedUp)
                 return;
-
+           
             itemPhysics.EnablePhysics(false);
 
+            isPickedUp = true;
             dragDrop.PickUp();
-            
             dragDrop.StartMovingAsync(movingSpeed);
         }
 
@@ -64,6 +65,7 @@ namespace BackpackUnit.Items
                 return;
 
             dragDrop.StopMoving();
+            isPickedUp = false;
 
             if (!TryPutToBackpack(eventData))
             {
@@ -73,10 +75,10 @@ namespace BackpackUnit.Items
 
         private bool TryPutToBackpack(PointerEventData eventData)
         {
-            if( TryToFindBackpack(eventData, out ICollectItems backpack))
+            if (TryToFindBackpack(eventData, out ICollectItems backpack))
             {
-                backpack.AddItem(transform, this, itemData);
-                itemAnimation.PutIntoRun(putIntoBackpackSpeed, insertionDistance);
+                Vector3 insertionLocalPosition = backpack.AddItem(transform, this, itemData);
+                itemAnimation.PutIntoRun(putIntoBackpackSpeed, insertionLocalPosition);
                 itemPhysics.SetAvailable(false);
                 return true;
             }
@@ -98,14 +100,14 @@ namespace BackpackUnit.Items
             return false;
         }
 
-        public void ThrowAway(Vector3 position)
+        public void ThrowAway(Vector3 position, Vector3 removalPosition)
         {
-            ThrowAwayAsync(position);
+            ThrowAwayAsync(position, removalPosition);
         }
 
-        private async void ThrowAwayAsync(Vector3 position)
+        private async void ThrowAwayAsync(Vector3 position, Vector3 removalPosition)
         {
-            await itemAnimation.ThrowRun(position, putIntoBackpackSpeed, insertionDistance);
+            await itemAnimation.ThrowRun(position, putIntoBackpackSpeed, removalPosition);
             transform.parent = itemsParent;
             itemPhysics.SetAvailable(true);
             itemPhysics.EnablePhysics(true);
@@ -114,7 +116,7 @@ namespace BackpackUnit.Items
 
         private void OnDestroy()
         {
-           dragDrop?.Dispose();
+            dragDrop?.Dispose();
         }
 
         public string GetId()

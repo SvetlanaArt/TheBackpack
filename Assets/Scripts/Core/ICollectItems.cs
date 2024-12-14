@@ -6,6 +6,6 @@ namespace BackpackUnit.Core
 {
     public interface ICollectItems
     {
-        public bool AddItem(Transform itemTransform, IThrowable item, IItemInfo itemInfo);
+        public Vector3 AddItem(Transform itemTransform, IThrowable item, IItemInfo itemInfo);
     }
 }

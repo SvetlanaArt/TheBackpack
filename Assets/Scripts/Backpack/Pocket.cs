@@ -6,6 +6,7 @@ namespace BackpackUnit.Backpack
     public class Pocket: MonoBehaviour
     {
         [SerializeField] ItemType type;
+        [SerializeField] Transform insertionPoint;
 
         IItemInfo itemInfo = null;
 
@@ -27,6 +28,11 @@ namespace BackpackUnit.Backpack
         public bool IsEmpty()
         {
             return itemInfo == null;
+        }
+
+        public Vector3 GetInsertionLocalPosition()
+        {
+            return insertionPoint.localPosition;
         }
     }
 }

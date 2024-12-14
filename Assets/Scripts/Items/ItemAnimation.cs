@@ -14,19 +14,19 @@ namespace BackpackUnit.Items
             this.transform = transform;
         }
 
-        public void PutIntoRun(float speed, float insertionDistance)
+        public void PutIntoRun(float speed, Vector3 insertiomLocalPosition)
         {
             Sequence putToBackpackSequence = DOTween.Sequence();
             putToBackpackSequence.Append(transform.DOLocalRotate(Vector3.zero, speed))
-                                 .Append(transform.DOLocalMove(new Vector3(0, insertionDistance, 0), speed))
+                                 .Append(transform.DOLocalMove(insertiomLocalPosition, speed))
                                  .Append(transform.DOLocalMove(Vector3.zero, speed).SetEase(Ease.InQuad));
         }
 
-        public async Task ThrowRun(Vector3 position, float speed, float insertionDistance)
+        public async Task ThrowRun(Vector3 position, float speed, Vector3 removalLocalPosition)
         {
             Sequence takeOutSequence = DOTween.Sequence();
 
-            takeOutSequence.Append(transform.DOLocalMove(new Vector3(0, insertionDistance, 0), speed))
+            takeOutSequence.Append(transform.DOLocalMove(removalLocalPosition, speed))
                            .Append(transform.DOMove(position, speed).SetEase(Ease.InQuad));
             await takeOutSequence.AsyncWaitForCompletion();
         }

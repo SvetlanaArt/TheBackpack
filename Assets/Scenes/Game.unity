@@ -714,10 +714,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 42790267fc8d2d749a72fc0f396c4aa0, type: 2}
     - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
-      propertyPath: throwForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
       propertyPath: insertionDistance
       value: 0.15
       objectReference: {fileID: 0}
@@ -1256,10 +1252,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 91e35cf0a3d5f4b4db3ee05b6acb8c07, type: 2}
     - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
-      propertyPath: throwForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
       propertyPath: insertionDistance
       value: -0.15
       objectReference: {fileID: 0}
@@ -1341,10 +1333,6 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: d15386f3135e1864f98bdb664d419e8e, type: 2}
-    - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
-      propertyPath: throwForce
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
       propertyPath: insertionDistance
       value: -0.15
@@ -1876,6 +1864,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1033228677}
     m_Modifications:
+    - target: {fileID: 682772511488788005, guid: 1fc2bd8c6a7059442b9abdc3fe5fb875, type: 3}
+      propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1404907794216832138, guid: 1fc2bd8c6a7059442b9abdc3fe5fb875, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.46
@@ -1927,6 +1919,22 @@ PrefabInstance:
     - target: {fileID: 4530761259280474279, guid: 1fc2bd8c6a7059442b9abdc3fe5fb875, type: 3}
       propertyPath: m_Name
       value: BackPack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531788962175617948, guid: 1fc2bd8c6a7059442b9abdc3fe5fb875, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586144218372787854, guid: 1fc2bd8c6a7059442b9abdc3fe5fb875, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947193570921819191, guid: 1fc2bd8c6a7059442b9abdc3fe5fb875, type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387790039772531786, guid: 1fc2bd8c6a7059442b9abdc3fe5fb875, type: 3}
+      propertyPath: type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1989,10 +1997,6 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: 0fb8d7bfecc738543b71009856b6b245, type: 2}
-    - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
-      propertyPath: throwForce
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3929042693498828551, guid: 98bb59a2f95eaa3429caf6898273a9f7, type: 3}
       propertyPath: insertionDistance
       value: -0.15

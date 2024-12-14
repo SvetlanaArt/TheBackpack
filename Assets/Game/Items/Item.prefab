@@ -152,3 +152,4 @@ MonoBehaviour:
   movingSpeed: 1
   putIntoBackpackSpeed: 0.3
   insertionDistance: 0
+  throwForce: 10

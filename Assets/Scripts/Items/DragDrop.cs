@@ -15,18 +15,20 @@ namespace BackpackUnit.Items
         CancellationTokenSource source;
 
         Vector3 positionCorrection;
+        Rigidbody rigidbody;
         Plane dragPlane;
 
-        public DragDrop(Transform positioningObject, float dragDistance, Vector3 center)
+        public DragDrop(Transform positioningObject, float dragDistance, Rigidbody rigidbody)
         {
             dragPlane = new Plane(Vector3.up, new Vector3(0, dragDistance, 0));
             mainCamera = Camera.main;
             transform = positioningObject;
-            positionCorrection = transform.position - center; 
+            this.rigidbody = rigidbody;
         }
 
         public void PickUp()
         {
+            positionCorrection = transform.position - rigidbody.worldCenterOfMass;
             transform.position = GetPositionOnDragPlane() ;
         }
 

@@ -6,6 +6,6 @@ namespace BackpackUnit.Core
     {
         public string GetId();
 
-        public void ThrowAway(Vector3 position);
+        public void ThrowAway(Vector3 position, Vector3 removalPosition);
     }
 }
