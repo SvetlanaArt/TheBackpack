@@ -1,6 +1,4 @@
-
 using BackpackUnit.Core;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,27 +6,38 @@ namespace BackpackUnit.Items
 {
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Rigidbody))]
-    public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IThrowable
     {
         [SerializeField] ItemData itemData;
+        [Header("DragDrop")]
         [SerializeField] float pickupDistance;
-        [SerializeField] float pickupSpeed;
+        [SerializeField] float movingSpeed;
+        [Header("Animation")]
+        [SerializeField] float putIntoBackpackSpeed;
         [SerializeField] float insertionDistance;
+        [Header("Physics")]
+        [SerializeField] float throwForce;
 
         DragDrop dragDrop;
-        Rigidbody rigidbodyObj;
-        Collider colliderObj;
+        ItemAnimation itemAnimation;
+        ItemPhysics itemPhysics;
         Camera mainCamera;
         
+        Transform itemsParent;
         bool isPickedUp;
 
         private void Start()
         {
             mainCamera = Camera.main;
-            rigidbodyObj = GetComponent<Rigidbody>();
-            colliderObj = GetComponent<Collider>();
-            dragDrop = new DragDrop(transform, pickupDistance, rigidbodyObj.worldCenterOfMass);
+            
+            Rigidbody rigidbodyObj = GetComponent<Rigidbody>();
+            Collider colliderObj = GetComponent<Collider>();
 
+            dragDrop = new DragDrop(transform, pickupDistance, rigidbodyObj.worldCenterOfMass);
+            itemAnimation = new ItemAnimation(transform);
+            itemPhysics = new ItemPhysics(rigidbodyObj, colliderObj);
+
+            itemsParent = transform.parent;
             isPickedUp = false;
         }
 
@@ -37,18 +46,11 @@ namespace BackpackUnit.Items
             if (isPickedUp)
                 return;
 
-            EnablePhysics(false);
+            itemPhysics.EnablePhysics(false);
 
             dragDrop.PickUp();
             
-            dragDrop.StartMovingAsync(pickupSpeed);
-        }
-
-        private void EnablePhysics(bool isEnabled)
-        {
-            rigidbodyObj.useGravity = isEnabled;
-            rigidbodyObj.isKinematic = !isEnabled;
-            colliderObj.isTrigger = !isEnabled;
+            dragDrop.StartMovingAsync(movingSpeed);
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -60,34 +62,49 @@ namespace BackpackUnit.Items
 
             if (!TryPutToBackpack(eventData))
             {
-                EnablePhysics(true);
+                itemPhysics.EnablePhysics(true);
             }
         }
 
         private bool TryPutToBackpack(PointerEventData eventData)
         {
+            if( TryToFindBackpack(eventData, out ICollectItems backpack))
+            {
+                backpack.AddItem(transform, this, itemData);
+                itemAnimation.PutIntoRun(putIntoBackpackSpeed, insertionDistance);
+                itemPhysics.SetAvailable(false);
+                return true;
+            }
+            return false;
+        }
+
+        private bool TryToFindBackpack(PointerEventData eventData, out ICollectItems backpack)
+        {
             Ray ray = mainCamera.ScreenPointToRay(eventData.position);
             RaycastHit[] hits = Physics.RaycastAll(ray, 50);
-
+            backpack = null;
             foreach (RaycastHit hit in hits)
             {
-                if (hit.collider.gameObject.TryGetComponent(out ICollectItems backpack))
+                if (hit.collider.gameObject.TryGetComponent(out backpack))
                 {
-                    backpack.AddItem(transform, itemData);
-                    Sequence backpackSequence = DOTween.Sequence();
-                    backpackSequence.Append(transform.DOLocalRotate(Vector3.zero, 0.3f))
-                                    .Append(transform.DOLocalMove(new Vector3(0, insertionDistance, 0), 0.3f)) 
-                                    .Append(transform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.InQuad));
-                    SetAvailable(false);
                     return true;
                 }
             }
             return false;
         }
 
-        private void SetAvailable(bool isAvailable)
+        public void ThrowAway(Vector3 position)
         {
-            colliderObj.enabled = isAvailable;
+            ThrowAwayAsync(position);
+        }
+
+        private async void ThrowAwayAsync(Vector3 position)
+        {
+            await itemAnimation.ThrowRun(position, putIntoBackpackSpeed, insertionDistance);
+            transform.parent = itemsParent;
+            itemPhysics.SetAvailable(true);
+            itemPhysics.EnablePhysics(true);
+            itemPhysics.ThrowWithForce(throwForce);
         }
 
         private void OnDestroy()
@@ -96,7 +113,6 @@ namespace BackpackUnit.Items
         }
 
     }
-
 }
 
 

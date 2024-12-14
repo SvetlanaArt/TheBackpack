@@ -149,4 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
   pickupDistance: 10
-  pickupSpeed: 0.01
+  movingSpeed: 1
+  putIntoBackpackSpeed: 0.3
+  insertionDistance: 0

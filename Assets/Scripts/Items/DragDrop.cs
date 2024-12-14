@@ -7,7 +7,7 @@ namespace BackpackUnit.Items
 {
     public class DragDrop :IDisposable
     {
-        const float SPEED_RATIO = 1000f;
+        const float SPEED_RATIO = 10f;
 
         Transform transform;
         Camera mainCamera;

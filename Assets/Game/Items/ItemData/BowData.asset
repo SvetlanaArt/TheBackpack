@@ -15,4 +15,4 @@ MonoBehaviour:
   weight: 3
   type: 3
   localName: Bow
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: e369d76f4ada5f14b85626c0110a93d6, type: 3}

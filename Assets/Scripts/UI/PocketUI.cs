@@ -16,6 +16,7 @@ namespace BackpackUnit.UI
 
         public void SetImage(Sprite sprite)
         {
+            image.enabled = true;
             image.sprite = sprite;
             image.type = Image.Type.Simple;
             image.preserveAspect = true;
@@ -23,6 +24,7 @@ namespace BackpackUnit.UI
 
         public void RemoveImage()
         {
+            image.enabled = false;
             image.sprite = null;
         }   
     }

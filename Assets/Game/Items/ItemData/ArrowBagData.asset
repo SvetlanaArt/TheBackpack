@@ -15,4 +15,4 @@ MonoBehaviour:
   weight: 2
   type: 0
   localName: Arrow Bag
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 6f2eaac64c1dbf74fa4acac93b14e4e5, type: 3}
