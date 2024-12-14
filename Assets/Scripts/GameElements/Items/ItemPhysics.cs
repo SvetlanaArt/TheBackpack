@@ -17,7 +17,6 @@ namespace BackpackUnit.Items
         {
             rigidbody.useGravity = isEnabled;
             rigidbody.isKinematic = !isEnabled;
-            collider.isTrigger = !isEnabled;
         }
 
         public void SetAvailable(bool isAvailable)

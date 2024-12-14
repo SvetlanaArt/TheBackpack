@@ -37,7 +37,6 @@ namespace BackpackUnit.Server
         private async void SendPostRequestAsync(string url, object requestData)
         {
             string jsonData = JsonUtility.ToJson(requestData);
-            Debug.Log("json " +jsonData);
 
             byte[] jsonToSend = Encoding.UTF8.GetBytes(jsonData);
 
