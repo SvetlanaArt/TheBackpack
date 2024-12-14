@@ -4,13 +4,19 @@ using UnityEngine;
 
 namespace BackpackUnit.Items
 {
-    [CreateAssetMenu(fileName = "NewItemData", menuName = "SO/ItemData", order = 0)]
-    public class ItemData: ScriptableObject, IItemInfo
+    [CreateAssetMenu(fileName = "NewItemConfig", menuName = "SO/ItemConfig", order = 0)]
+    public class ItemConfig : ScriptableObject, IItemInfo
     {
+        [SerializeField] string id;
         [SerializeField] float weight;
         [SerializeField] ItemType type;
         [SerializeField] string localName;
         [SerializeField] Sprite image;
+
+        public ItemConfig()
+        {
+            id = Guid.NewGuid().ToString();
+        }
 
         public ItemType GetItemType()
         {
@@ -20,6 +26,11 @@ namespace BackpackUnit.Items
         public Sprite GetImage()
         {
             return image;
+        }
+
+        public string GetId()
+        {
+            return id;
         }
     }
 

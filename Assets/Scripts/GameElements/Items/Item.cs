@@ -1,6 +1,6 @@
-using System;
 using BackpackUnit.Core;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace BackpackUnit.Items
@@ -9,23 +9,21 @@ namespace BackpackUnit.Items
     [RequireComponent(typeof(Rigidbody))]
     public class Item : MonoBehaviour, IThrowable
     {
-        [SerializeField] ItemData itemData;
+        [SerializeField] ItemConfig itemData;
         [Header("Animation")]
         [SerializeField] float putIntoBackpackSpeed;
         [Header("Physics")]
         [SerializeField] float throwForce;
+        [Header("events")]
 
         ItemAnimation itemAnimation;
         ItemPhysics itemPhysics;
 
         Camera mainCamera;
         Transform itemsParent;
-        string id;
 
         private void Start()
         {
-            id = id = Guid.NewGuid().ToString();
-
             mainCamera = Camera.main;
 
             Rigidbody rigidbodyObj = GetComponent<Rigidbody>();
@@ -90,7 +88,7 @@ namespace BackpackUnit.Items
 
         public string GetId()
         {
-            return id;
+            return itemData.GetId();
         }
     }
 }

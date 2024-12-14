@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ca656fd958ac204f85c93f7dfcd2f70, type: 3}
-  m_Name: ArrowBagData
+  m_Name: HoeConfig
   m_EditorClassIdentifier: 
-  weight: 2
-  type: 0
-  localName: Arrow Bag
-  image: {fileID: 21300000, guid: 6f2eaac64c1dbf74fa4acac93b14e4e5, type: 3}
+  weight: 0.5
+  type: 2
+  localName: Hoe
+  image: {fileID: 21300000, guid: 4a04605606f4cdf449f3eb7b1d05bef9, type: 3}

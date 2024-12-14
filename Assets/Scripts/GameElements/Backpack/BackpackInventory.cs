@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using BackpackUnit.Core;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace BackpackUnit.Backpack
 {
@@ -9,6 +9,9 @@ namespace BackpackUnit.Backpack
     public class BackpackInventory : MonoBehaviour, ICollectItems
     {
         [SerializeField] Transform throwPoint;
+        [SerializeField] UnityEvent putIntoAction;
+        [SerializeField] UnityEvent takeOutAction;
+
         Dictionary<ItemType, Pocket> pockets;
         Dictionary<ItemType, IThrowable> itemsInBackpack;
 
@@ -50,6 +53,7 @@ namespace BackpackUnit.Backpack
                     pocket.PutItem(itemInfo);
                     backpackView.AddItem(itemInfo);
                     remoteRequest.SendToServer(item.GetId(), "Add");
+                    putIntoAction?.Invoke();
                     return pocket.GetInsertionLocalPosition();
                 }
             }
@@ -67,6 +71,7 @@ namespace BackpackUnit.Backpack
                     item.ThrowAway(throwPoint.transform.position, pocket.GetInsertionLocalPosition());
                     itemsInBackpack.Remove(itemType);
                     remoteRequest.SendToServer(item.GetId(), "Remove");
+                    takeOutAction?.Invoke();
                 }
             }
          }

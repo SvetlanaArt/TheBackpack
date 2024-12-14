@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ca656fd958ac204f85c93f7dfcd2f70, type: 3}
-  m_Name: BowData
+  m_Name: KnifeConfig
   m_EditorClassIdentifier: 
-  weight: 3
-  type: 3
-  localName: Bow
-  image: {fileID: 21300000, guid: e369d76f4ada5f14b85626c0110a93d6, type: 3}
+  weight: 0.2
+  type: 1
+  localName: Knife
+  image: {fileID: 21300000, guid: 18410a6427f5cd648bf5c26614d09516, type: 3}
