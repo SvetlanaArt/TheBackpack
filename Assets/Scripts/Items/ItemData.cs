@@ -12,18 +12,6 @@ namespace BackpackUnit.Items
         [SerializeField] string localName;
         [SerializeField] Sprite image;
 
-        private string id;
-
-        public ItemData()
-        {
-            id = Guid.NewGuid().ToString();
-        }
-
-        public string GetId()
-        {
-            return id;
-        }
-
         public ItemType GetItemType()
         {
             return type;

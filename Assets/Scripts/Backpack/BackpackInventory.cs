@@ -13,9 +13,12 @@ namespace BackpackUnit.Backpack
         Dictionary<ItemType, IThrowable> itemsInBackpack;
 
         IBackpackView backpackView;
+        IRemoteRequest remoteRequest;
 
-        public void Init(IBackpackView backpackView)
+        public void Init(IBackpackView backpackView, IRemoteRequest remoteRequest)
         {
+            this.remoteRequest = remoteRequest;
+
             this.backpackView = backpackView;
             backpackView.OnRemoveItem += RemoveItem;
 
@@ -46,6 +49,7 @@ namespace BackpackUnit.Backpack
                     itemTransform.parent = pocket.transform;
                     pocket.PutItem(itemInfo);
                     backpackView.AddItem(itemInfo);
+                    remoteRequest.SendToServer(item.GetId(), "Add");
                     return true;
                 }
             }
@@ -63,6 +67,7 @@ namespace BackpackUnit.Backpack
             {
                 item.ThrowAway(throwPoint.transform.position);
                 itemsInBackpack.Remove(itemType);
+                remoteRequest.SendToServer(item.GetId(), "Remove");
             }
         }
     }

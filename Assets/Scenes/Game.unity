@@ -1686,6 +1686,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14aa6a9c6c6bbd47a727c09fe4bd682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  url: https://wadahub.manerai.com/api/inventory/status
+  token: kPERnYcWAY46xaSy8CEzanosAgsWM84Nx7SKM4QBSqPq6c7StWfGxzhxPfDh8MaP
   inventiryUI: {fileID: 426078980}
   backpackInputHandler: {fileID: 1846184467}
   backpackInventory: {fileID: 1846184468}

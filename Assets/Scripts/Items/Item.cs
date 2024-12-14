@@ -1,3 +1,4 @@
+using System;
 using BackpackUnit.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,8 +27,12 @@ namespace BackpackUnit.Items
         Transform itemsParent;
         bool isPickedUp;
 
+        string id;
+
         private void Start()
         {
+            id = id = Guid.NewGuid().ToString();
+
             mainCamera = Camera.main;
             
             Rigidbody rigidbodyObj = GetComponent<Rigidbody>();
@@ -112,6 +117,10 @@ namespace BackpackUnit.Items
            dragDrop?.Dispose();
         }
 
+        public string GetId()
+        {
+            return id;
+        }
     }
 }
 
