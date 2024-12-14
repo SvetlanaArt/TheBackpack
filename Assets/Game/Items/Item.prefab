@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1782302233177320935}
   - component: {fileID: 7702793460627936152}
   - component: {fileID: 3929042693498828551}
+  - component: {fileID: 3962497989111108739}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -148,8 +149,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
+  putIntoBackpackSpeed: 0.3
+  throwForce: 10
+--- !u!114 &3962497989111108739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4975338729765619450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f95143f69ca19741b7fbd546b47423c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   pickupDistance: 10
   movingSpeed: 1
-  putIntoBackpackSpeed: 0.3
-  insertionDistance: 0
-  throwForce: 10

@@ -7,25 +7,19 @@ namespace BackpackUnit.Items
 {
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Rigidbody))]
-    public class Item : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IThrowable
+    public class Item : MonoBehaviour, IThrowable
     {
         [SerializeField] ItemData itemData;
-        [Header("DragDrop")]
-        [SerializeField] float pickupDistance;
-        [SerializeField] float movingSpeed;
         [Header("Animation")]
         [SerializeField] float putIntoBackpackSpeed;
         [Header("Physics")]
         [SerializeField] float throwForce;
 
-        DragDrop dragDrop;
         ItemAnimation itemAnimation;
         ItemPhysics itemPhysics;
+
         Camera mainCamera;
-
         Transform itemsParent;
-        bool isPickedUp;
-
         string id;
 
         private void Start()
@@ -37,43 +31,13 @@ namespace BackpackUnit.Items
             Rigidbody rigidbodyObj = GetComponent<Rigidbody>();
             Collider colliderObj = GetComponent<Collider>();
 
-            dragDrop = new DragDrop(transform, pickupDistance, rigidbodyObj);
             itemAnimation = new ItemAnimation(transform);
             itemPhysics = new ItemPhysics(rigidbodyObj, colliderObj);
 
             itemsParent = transform.parent;
-            isPickedUp = false;
         }
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (!Input.GetMouseButton(0))
-                return;
-            if (isPickedUp)
-                return;
-           
-            itemPhysics.EnablePhysics(false);
-
-            isPickedUp = true;
-            dragDrop.PickUp();
-            dragDrop.StartMovingAsync(movingSpeed);
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            if (Input.GetMouseButton(0))
-                return;
-
-            dragDrop.StopMoving();
-            isPickedUp = false;
-
-            if (!TryPutToBackpack(eventData))
-            {
-                itemPhysics.EnablePhysics(true);
-            }
-        }
-
-        private bool TryPutToBackpack(PointerEventData eventData)
+        public bool TryPutToBackpack(PointerEventData eventData)
         {
             if (TryToFindBackpack(eventData, out ICollectItems backpack))
             {
@@ -110,13 +74,18 @@ namespace BackpackUnit.Items
             await itemAnimation.ThrowRun(position, putIntoBackpackSpeed, removalPosition);
             transform.parent = itemsParent;
             itemPhysics.SetAvailable(true);
-            itemPhysics.EnablePhysics(true);
+            Drop();
             itemPhysics.ThrowWithForce(throwForce);
         }
 
-        private void OnDestroy()
+        public void Catch()
         {
-            dragDrop?.Dispose();
+            itemPhysics.EnablePhysics(false);
+        }
+
+        public void Drop()
+        {
+            itemPhysics.EnablePhysics(true);
         }
 
         public string GetId()
