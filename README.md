@@ -22,12 +22,12 @@ https://github.com/user-attachments/assets/648f984f-2a48-4df6-83fe-232d4354679b
 
 The project structure is organised with a generalised hierarchy. All resources (prefabs, textures, models, sounds) are stored in the **‘Game’** folder. All scripts, resources and objects in the scene have a generalised hierarchy of titles, organised into categories:
 
-**Core/** - contains the main interfaces, manager classes and resources that define the core of the application
-**EntryPoint/** - the entry point of the application
-**Server/** - communication with the server
-**GameElements/** - interactive game elements
-**Environment/** - background game elements
-**UI/** - interface elements
+- **Core/** - contains the main interfaces, manager classes and resources that define the core of the application
+- **EntryPoint/** - the entry point of the application
+- **Server/** - communication with the server
+- **GameElements/** - interactive game elements
+- **Environment/** - background game elements
+- **UI/** - interface elements
 
 ## Sources
 
